@@ -1,2 +1,1 @@
-# todo
-just a start of an exciting journey
+**To Progress App** is your personal productivity companion, designed to help you set goals, track progress, and celebrate achievements. With a sleek interface and powerful features, it transforms your daily tasks into exciting milestones. Stay motivated, organized, and always moving forward—progress has never been this fun!
