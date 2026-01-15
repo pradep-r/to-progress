@@ -7,7 +7,7 @@ module.exports = {
 
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, "docs"),
     },
     hot: true,
     liveReload: true,
@@ -23,7 +23,7 @@ module.exports = {
   // your main JS file
   output: {
     filename: "bundle.js", // the output bundle name
-    path: path.resolve(__dirname, "dist"), // output folder
+    path: path.resolve(__dirname, "docs"), // output folder
     publicPath: "/",
   },
   module: {
