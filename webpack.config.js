@@ -14,6 +14,12 @@ module.exports = {
     liveReload: true,
     open: true,
   },
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 300,
+    poll: 1000,
+    followSymlinks: false,
+  },
   // devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
