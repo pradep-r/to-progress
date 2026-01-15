@@ -28,7 +28,7 @@ module.exports = {
   output: {
     filename: "bundle.js", // the output bundle name
     path: path.resolve(__dirname, "docs"), // output folder
-    publicPath: "/",
+    publicPath: "/to-progress/",
   },
   module: {
     rules: [
