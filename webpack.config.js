@@ -20,6 +20,7 @@ module.exports = {
     poll: 1000,
     followSymlinks: false,
   },
+  watchFiles: ['src/**/*.html'],
   // devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
