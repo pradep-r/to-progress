@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: "development", // development mode for readable output
@@ -18,6 +19,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html", // your source template
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
   ],
 
   // your main JS file
@@ -31,7 +35,7 @@ module.exports = {
       {
         test: /\.(scss|css)$/i, // target .scss files
         use: [
-          "style-loader", // injects CSS into <head>
+          MiniCssExtractPlugin.loader, // extracts CSS into separate files
           "css-loader", // translates CSS into JS
           "sass-loader", // compiles SCSS → CSS
         ],

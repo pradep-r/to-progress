@@ -1,0 +1,17 @@
+/*!***************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/style.css ***!
+  \***************************************************************************************************************/
+/* button {
+  --button-height: 300px;
+  --button-width: 300px;
+  height: var(--button-height);
+  width: var(--button-width);
+} */
+/*!***************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/test.scss ***!
+  \***************************************************************************************************************/
+button {
+  height: 300px;
+  width: 40px;
+  background-color: green;
+}
