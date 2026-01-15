@@ -33,11 +33,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(scss|css)$/i, // target .scss files
+        test: /\.css$/i,
         use: [
-          MiniCssExtractPlugin.loader, // extracts CSS into separate files
-          "css-loader", // translates CSS into JS
-          "sass-loader", // compiles SCSS → CSS
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+        ],
+      },
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
         ],
       },
       {

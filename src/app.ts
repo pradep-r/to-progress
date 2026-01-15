@@ -1,21 +1,33 @@
 import "./styles/style.css";
 import "./styles/test.scss";
 
-const btn: HTMLElement|null = document.getElementById("myBtn");
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href')!);
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
-const test: string = "Hello TypeScript";
-
-const handler = () => {
-  const user = {
-    name: "Pradep",
-    age: 25,
-  };
-
-  const greet = (user:any) => {
-    console.log(`Hello ${user?.name ?? "Guest"}`);
-  };
-
-  greet(user);
+// Simple animation on scroll (optional)
+const observerOptions = {
+  threshold: 0.1
 };
 
-btn?.addEventListener("click", handler);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, observerOptions);
+
+// Observe sections for animation
+document.querySelectorAll('section').forEach(section => {
+  observer.observe(section);
+});
