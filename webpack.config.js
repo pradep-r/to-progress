@@ -18,11 +18,11 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
-  // output: {
-  //   filename: "bundle.js",
-  //   path: path.resolve(__dirname, "docs"),
-  //   publicPath: "/",
-  // },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "docs"),
+    publicPath: "/",
+  },
   module: {
     rules: [
       {
