@@ -3,30 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn English — Build the sentence</title>
+    <title>Learn English — Articles (a / the)</title>
   <script defer src="main.js"></script></head>
   <body>
     <div id="app" class="app">
       <header class="header">
         <h1>Learn English</h1>
-        <p class="subtitle">Answer the questions to build the sentence</p>
+        <p class="subtitle">Choose the noun and the article (a / the)</p>
       </header>
 
       <main class="main">
-        <section class="image-section" aria-label="Object to describe">
-          <div class="image-wrapper">
-            <img id="lesson-image" src="" alt="" class="lesson-image" />
-          </div>
-        </section>
+        <div class="main-row">
+          <section class="image-section" aria-label="Object to describe">
+            <div class="image-wrapper">
+              <img id="lesson-image" src="" alt="" class="lesson-image" />
+            </div>
+            <div class="image-toolbar">
+              <button type="button" id="pronounce-btn" class="toolbar-btn pronounce-btn" aria-label="Listen to the word">
+                Listen
+              </button>
+              <div class="nav-buttons">
+                <button type="button" id="prev-btn" class="toolbar-btn nav-btn" aria-label="Previous image">Previous</button>
+                <span id="lesson-counter" class="lesson-counter"></span>
+                <button type="button" id="next-btn" class="toolbar-btn nav-btn" aria-label="Next image">Next</button>
+              </div>
+            </div>
+          </section>
 
-        <section class="sentence-section" aria-label="Your sentence">
-          <h2>Your sentence</h2>
+          <section class="questions-section" aria-label="Practice articles">
+            <h2>Practice articles</h2>
+            <div id="questions-container" class="questions-container"></div>
+          </section>
+        </div>
+
+        <section id="answer-section" class="answer-section" aria-label="Your answer" hidden>
+          <h2>Your answer</h2>
           <p id="sentence-display" class="sentence-display"></p>
-        </section>
-
-        <section class="questions-section" aria-label="Questions">
-          <h2>Answer the questions</h2>
-          <div id="questions-container" class="questions-container"></div>
+          <p id="validation-message" class="validation-message" aria-live="polite"></p>
         </section>
       </main>
     </div>
