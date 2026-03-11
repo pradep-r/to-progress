@@ -2,19 +2,25 @@ import "./styles/style.css";
 import type { Lesson, LessonPart, LessonOption } from "./data/lessons";
 import { lessons } from "./data/lessons";
 
-const sentenceDisplay = document.getElementById("sentence-display") as HTMLParagraphElement;
+const sentenceDisplay = document.getElementById(
+  "sentence-display",
+) as HTMLParagraphElement;
 const lessonImage = document.getElementById("lesson-image") as HTMLImageElement;
-const questionsContainer = document.getElementById("questions-container") as HTMLDivElement;
+const questionsContainer = document.getElementById(
+  "questions-container",
+) as HTMLDivElement;
 const answerSection = document.getElementById("answer-section") as HTMLElement;
-const validationMessage = document.getElementById("validation-message") as HTMLParagraphElement;
-const pronounceBtn = document.getElementById("pronounce-btn") as HTMLButtonElement;
+const validationMessage = document.getElementById(
+  "validation-message",
+) as HTMLParagraphElement;
+const pronounceBtn = document.getElementById(
+  "pronounce-btn",
+) as HTMLButtonElement;
 const prevBtn = document.getElementById("prev-btn") as HTMLButtonElement;
 const nextBtn = document.getElementById("next-btn") as HTMLButtonElement;
-const lessonCounter = document.getElementById("lesson-counter") as HTMLSpanElement;
-
-if (!sentenceDisplay || !lessonImage || !questionsContainer || !answerSection || !validationMessage || !pronounceBtn || !prevBtn || !nextBtn || !lessonCounter) {
-  throw new Error("Required DOM elements not found");
-}
+const lessonCounter = document.getElementById(
+  "lesson-counter",
+) as HTMLSpanElement;
 
 let currentLessonIndex = 0;
 let currentLesson: Lesson | null = null;
@@ -33,19 +39,36 @@ function loadLesson(lesson: Lesson, index: number): void {
   renderQuestions(lesson.parts);
   updateQuestionVisibility();
   updateLessonCounter();
-  updateNavButtons();
-  pronounceBtn.setAttribute("aria-label", `Listen to the word "${lesson.objectWord}"`);
+  // updateNavButtons();
+  // pronounceBtn.setAttribute(
+  //   "aria-label",
+  //   `Listen to the word "${lesson.objectWord}"`,
+  // );
 }
 
 function buildSentence(): string {
   if (!currentLesson || chosenParts.length === 0) return "";
   // Articles only: order is article (part 1) + noun (part 0).
-  const article = chosenParts[1];
-  const noun = chosenParts[0];
-  if (article !== undefined && noun !== undefined) {
-    return `${article} ${noun}`;
+
+  const objectCountStatus = chosenParts[0];
+  const objectKnownStatus = chosenParts[1];
+  console.log(
+    "Building sentence with object count status:",
+    objectCountStatus,
+    "and object known status:",
+    objectKnownStatus,
+  );
+  if (objectCountStatus === "one" && objectKnownStatus === "yes") {
+    return `The ${currentLesson.objectWord}`;
+  } else if (objectCountStatus === "one" && objectKnownStatus === "no") {
+    return `A ${currentLesson.objectWord}`;
+  } else if (objectCountStatus === "many" && objectKnownStatus === "yes") {
+    return `The ${currentLesson.objectWord}s`;
+  } else if (objectCountStatus === "many" && objectKnownStatus === "no") {
+    return `${currentLesson.objectWord}s`;
+  } else {
+    return "";
   }
-  return "";
 }
 
 function updateSentenceDisplay(): void {
@@ -63,36 +86,18 @@ function updateQuestionVisibility(): void {
     const visible = i === 0 || chosenParts[i - 1] !== undefined;
     (block as HTMLElement).hidden = !visible;
   });
-  const allAnswered = parts.length > 0 && parts.every((_, i) => chosenParts[i] !== undefined);
+  const allAnswered =
+    parts.length > 0 && parts.every((_, i) => chosenParts[i] !== undefined);
   answerSection.hidden = !allAnswered;
   if (allAnswered) {
     updateValidation();
   }
 }
 
-function getCorrectPhrase(): string {
-  if (!currentLesson) return "";
-  return `${currentLesson.correctArticle} ${currentLesson.objectWord}`;
-}
-
 function updateValidation(): void {
   if (!currentLesson || !validationMessage) return;
   const noun = chosenParts[0];
   const article = chosenParts[1];
-  const nounCorrect = noun === currentLesson.objectWord;
-  const articleCorrect = article === currentLesson.correctArticle;
-  const correct = nounCorrect && articleCorrect;
-
-  answerSection.classList.remove("answer-correct", "answer-incorrect");
-  answerSection.classList.add(correct ? "answer-correct" : "answer-incorrect");
-
-  if (correct) {
-    validationMessage.textContent = "Correct!";
-    validationMessage.className = "validation-message validation-correct";
-  } else {
-    validationMessage.textContent = `The correct answer is: ${getCorrectPhrase()}`;
-    validationMessage.className = "validation-message validation-incorrect";
-  }
 }
 
 function renderQuestions(parts: LessonPart[]): void {
@@ -124,7 +129,7 @@ function renderQuestions(parts: LessonPart[]): void {
 
       const explanationEl = document.createElement("p");
       explanationEl.className = "option-explanation";
-      explanationEl.textContent = opt.explanation;
+      explanationEl.textContent = opt.meaning;
 
       optionItem.appendChild(button);
       optionItem.appendChild(explanationEl);
@@ -140,7 +145,7 @@ function renderQuestions(parts: LessonPart[]): void {
 function choosePart(
   partIndex: number,
   option: LessonOption,
-  wrapper: HTMLDivElement
+  wrapper: HTMLDivElement,
 ): void {
   chosenParts[partIndex] = option.value;
   updateSentenceDisplay();
@@ -164,26 +169,11 @@ function updateLessonCounter(): void {
   lessonCounter.textContent = `${currentLessonIndex + 1} / ${lessons.length}`;
 }
 
-function updateNavButtons(): void {
-  prevBtn.disabled = currentLessonIndex <= 0;
-  nextBtn.disabled = currentLessonIndex >= lessons.length - 1;
-}
-
-function goToPrev(): void {
-  if (currentLessonIndex <= 0) return;
-  loadLesson(lessons[currentLessonIndex - 1]!, currentLessonIndex - 1);
-}
-
-function goToNext(): void {
-  if (currentLessonIndex >= lessons.length - 1) return;
-  loadLesson(lessons[currentLessonIndex + 1]!, currentLessonIndex + 1);
-}
-
 function pronounceObject(): void {
   if (!currentLesson) return;
   const word = currentLesson.objectWord;
   if (!word) return;
-  const utterance = new SpeechSynthesisUtterance(word);
+  const utterance = new SpeechSynthesisUtterance(buildSentence());
   utterance.lang = "en-US";
   utterance.rate = 0.9;
   speechSynthesis.cancel();
@@ -192,8 +182,6 @@ function pronounceObject(): void {
 
 // Event listeners
 pronounceBtn.addEventListener("click", pronounceObject);
-prevBtn.addEventListener("click", goToPrev);
-nextBtn.addEventListener("click", goToNext);
 
 // Start with the first lesson
 loadLesson(lessons[0]!, 0);

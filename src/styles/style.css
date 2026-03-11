@@ -83,7 +83,9 @@ body {
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .toolbar-btn:hover:not(:disabled) {
@@ -151,6 +153,7 @@ body {
 }
 
 .answer-section {
+  margin-top: 10px;
   padding: 1.25rem 1.25rem;
   background: #ebf8ff;
   border-radius: 10px;
@@ -229,7 +232,9 @@ body {
   background: #fff;
   border-radius: 10px;
   border: 2px solid #e2e8f0;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .question-block.answered {
@@ -275,7 +280,10 @@ body {
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.1s;
 }
 
 .option-btn:hover {
