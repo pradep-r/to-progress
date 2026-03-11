@@ -59,13 +59,13 @@ function buildSentence(): string {
     objectKnownStatus,
   );
   if (objectCountStatus === "one" && objectKnownStatus === "yes") {
-    return `The ${currentLesson.objectWord}`;
-  } else if (objectCountStatus === "one" && objectKnownStatus === "no") {
     return `A ${currentLesson.objectWord}`;
+  } else if (objectCountStatus === "one" && objectKnownStatus === "no") {
+    return `The ${currentLesson.objectWord}`;
   } else if (objectCountStatus === "many" && objectKnownStatus === "yes") {
-    return `The ${currentLesson.objectWord}s`;
-  } else if (objectCountStatus === "many" && objectKnownStatus === "no") {
     return `${currentLesson.objectWord}s`;
+  } else if (objectCountStatus === "many" && objectKnownStatus === "no") {
+    return `The ${currentLesson.objectWord}s`;
   } else {
     return "";
   }

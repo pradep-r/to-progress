@@ -51,17 +51,17 @@ export const lessons: Lesson[] = [
         ],
       },
       {
-        question: "Are you seeing this cat for the first time?",
+        question: "Are you seeing this cat/cats for the first time?",
         options: [
-          {
-            value: "no",
-            meaning:
-              "This is known cat. You have already mentioned it or both you and listener know which cat.",
-          },
           {
             value: "yes",
             meaning:
-              "You are seeing this cat for the first time. It is not known to the listener.",
+              "You are seeing this cat/cats for the first time. It is not known to the listener.",
+          },
+          {
+            value: "no",
+            meaning:
+              "This is known cat/cats. You have already mentioned it or both you and listener know which cat.",
           },
         ],
       },
