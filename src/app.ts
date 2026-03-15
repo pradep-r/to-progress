@@ -4,7 +4,7 @@ import { lessons } from "./data/lessons";
 
 const sentenceDisplay = document.getElementById(
   "sentence-display",
-) as HTMLParagraphElement;
+) as HTMLDivElement;
 const lessonImage = document.getElementById("lesson-image") as HTMLImageElement;
 const questionsContainer = document.getElementById(
   "questions-container",
@@ -50,31 +50,18 @@ function buildSentence(): string {
   if (!currentLesson || chosenParts.length === 0) return "";
   // Articles only: order is article (part 1) + noun (part 0).
 
-  const objectCountStatus = chosenParts[0];
-  const objectKnownStatus = chosenParts[1];
-  console.log(
-    "Building sentence with object count status:",
-    objectCountStatus,
-    "and object known status:",
-    objectKnownStatus,
-  );
-  if (objectCountStatus === "one" && objectKnownStatus === "yes") {
-    return `The ${currentLesson.objectWord}`;
-  } else if (objectCountStatus === "one" && objectKnownStatus === "no") {
+  // const objectCountStatus = chosenParts[0];
+  const objectKnownStatus = chosenParts[0];
+  if (objectKnownStatus === "No") {
     return `A ${currentLesson.objectWord}`;
-  } else if (objectCountStatus === "many" && objectKnownStatus === "yes") {
-    return `The ${currentLesson.objectWord}s`;
-  } else if (objectCountStatus === "many" && objectKnownStatus === "no") {
-    return `${currentLesson.objectWord}s`;
   } else {
-    return "";
+    return `The ${currentLesson.objectWord}`;
   }
 }
 
 function updateSentenceDisplay(): void {
   const text = buildSentence();
-  sentenceDisplay.textContent = text || "";
-  sentenceDisplay.classList.toggle("placeholder", !text);
+  sentenceDisplay.innerText = text || "";
 }
 
 /** Show question i only if all previous questions are answered; show answer section when all answered. */
@@ -131,8 +118,14 @@ function renderQuestions(parts: LessonPart[]): void {
       explanationEl.className = "option-explanation";
       explanationEl.textContent = opt.meaning;
 
+      const divider = document.createElement("div");
+      divider.className = "option-divider";
+
       optionItem.appendChild(button);
       optionItem.appendChild(explanationEl);
+      optionItem.appendChild(divider);
+
+      optionsDiv.appendChild(divider);
       optionsDiv.appendChild(optionItem);
     });
 

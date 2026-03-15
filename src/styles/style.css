@@ -21,7 +21,7 @@ body {
 
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 10px;
 }
 
 .header h1 {
@@ -45,7 +45,7 @@ body {
 .main-row {
   display: flex;
   gap: 1.5rem;
-  align-items: flex-start;
+  flex-direction: column;
 }
 
 @media (max-width: 640px) {
@@ -300,4 +300,10 @@ body {
   background: #38a169;
   border-color: #38a169;
   color: #fff;
+}
+
+.option-divider {
+  border-bottom: 1px solid #7bb1a0;
+  height: 10px;
+  width: 100%;
 }

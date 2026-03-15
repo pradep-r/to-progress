@@ -38,30 +38,18 @@ export const lessons: Lesson[] = [
     objectWord: "cat",
     parts: [
       {
-        question: "How many cats are  you seeing? is it one or many",
-        options: [
-          {
-            value: "one",
-            meaning: "If you are seeing one single cat.",
-          },
-          {
-            value: "many",
-            meaning: "If you are seeing more than one cat.",
-          },
-        ],
-      },
-      {
         question:
-          "Can your listener picture exactly which cat/cats you mean — is there only one in their mind?",
+          "Do you want to speak about this cat which your listener already has a reference in their mind?",
         options: [
           {
-            value: "yes",
-            meaning: "Your listener can picture exactly which one.",
+            value: "Yes",
+            meaning:
+              "You want to speak about this specific cat and your listener can mentally refer exactly this cat - because you mentioned it before, the situation makes it clear, or you both share the same context.",
           },
           {
-            value: "no",
+            value: "No",
             meaning:
-              "Your listener cannot picture exactly which one.",
+              "You want to speak about this cat for the first time - your listener has no specific mental reference for it yet.",
           },
         ],
       },
