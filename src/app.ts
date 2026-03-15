@@ -158,9 +158,9 @@ function choosePart(
   });
 }
 
-function updateLessonCounter(): void {
-  lessonCounter.textContent = `${currentLessonIndex + 1} / ${lessons.length}`;
-}
+// function updateLessonCounter(): void {
+//   lessonCounter.textContent = `${currentLessonIndex + 1} / ${lessons.length}`;
+// }
 
 function pronounceObject(): void {
   if (!currentLesson) return;
