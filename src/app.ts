@@ -38,7 +38,7 @@ function loadLesson(lesson: Lesson, index: number): void {
   updateSentenceDisplay();
   renderQuestions(lesson.parts);
   updateQuestionVisibility();
-  updateLessonCounter();
+  // updateLessonCounter();
   // updateNavButtons();
   // pronounceBtn.setAttribute(
   //   "aria-label",
