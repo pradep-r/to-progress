@@ -2,6 +2,7 @@ import "./styles/style.css";
 import type { Lesson, LessonPart, LessonOption } from "./data/lessons";
 import { lessons } from "./data/lessons";
 
+// DOM elements for the lesson learning interface
 const sentenceDisplay = document.getElementById(
   "sentence-display",
 ) as HTMLDivElement;
@@ -22,6 +23,7 @@ const lessonCounter = document.getElementById(
   "lesson-counter",
 ) as HTMLSpanElement;
 
+// Current lesson state
 let currentLessonIndex = 0;
 let currentLesson: Lesson | null = null;
 const chosenParts: string[] = [];
@@ -38,19 +40,12 @@ function loadLesson(lesson: Lesson, index: number): void {
   updateSentenceDisplay();
   renderQuestions(lesson.parts);
   updateQuestionVisibility();
-  // updateLessonCounter();
-  // updateNavButtons();
-  // pronounceBtn.setAttribute(
-  //   "aria-label",
-  //   `Listen to the word "${lesson.objectWord}"`,
-  // );
 }
 
 function buildSentence(): string {
   if (!currentLesson || chosenParts.length === 0) return "";
-  // Articles only: order is article (part 1) + noun (part 0).
 
-  // const objectCountStatus = chosenParts[0];
+  // Choose "A" or "The" based on whether the object is known (chosen answer)
   const objectKnownStatus = chosenParts[0];
   if (objectKnownStatus === "No") {
     return `A ${currentLesson.objectWord}`;
@@ -64,7 +59,7 @@ function updateSentenceDisplay(): void {
   sentenceDisplay.innerText = text || "";
 }
 
-/** Show question i only if all previous questions are answered; show answer section when all answered. */
+// Progressively reveal questions as previous ones are answered; show submit when all complete
 function updateQuestionVisibility(): void {
   if (!currentLesson) return;
   const parts = currentLesson.parts;
@@ -146,7 +141,7 @@ function choosePart(
 
   wrapper.classList.add("answered");
 
-  // Update chosen state: only the clicked option is chosen; options stay clickable
+  // Update visual state: mark the selected option as chosen while keeping all options clickable
   const buttons = wrapper.querySelectorAll(".option-btn");
   buttons.forEach((btn) => {
     const b = btn as HTMLButtonElement;
@@ -158,10 +153,7 @@ function choosePart(
   });
 }
 
-// function updateLessonCounter(): void {
-//   lessonCounter.textContent = `${currentLessonIndex + 1} / ${lessons.length}`;
-// }
-
+// Function to synthesize and play the current sentence
 function pronounceObject(): void {
   if (!currentLesson) return;
   const word = currentLesson.objectWord;
@@ -173,8 +165,6 @@ function pronounceObject(): void {
   speechSynthesis.speak(utterance);
 }
 
-// Event listeners
+// Initialize event listeners and load the first lesson
 pronounceBtn.addEventListener("click", pronounceObject);
-
-// Start with the first lesson
 loadLesson(lessons[0]!, 0);
